@@ -1,0 +1,42 @@
+{{- partial "head.html" . -}}
+<body>
+    {{- partial "header.html" . -}}
+    <div class="all-content">
+        <h4 class="description">{{ .Site.Params.description }}</h4>
+        <div class="posts">
+            <p class="author">Thank you for visiting :)</p>
+
+            {{ range (.Paginator 100).Pages }}
+            <div class="status-all">
+            <p>
+                <div class="time">
+                    <span class="relativetime" datetime="{{ dateFormat "2006-01-02T15:04:05" .Date }}" title="{{ dateFormat "January 2, 2006" .Date }}"><span class="date-only">{{ .Date.Format "02 Jan 2006" }}</span> | <span class="timeam">{{ .Date.Format "15:04" }}</span></span>
+                </div>
+                {{ .Content }}
+
+                {{ if isset .Params "tags" }}
+                
+                <span class="mood"></span>
+                {{ range (.GetTerms "tags") }}
+                    <span>
+                        <a href="{{ .Permalink }}">{{ .LinkTitle }}</a></span>
+                {{ end }}
+                {{ end }}
+            </p>
+        </div>
+        <br>
+        {{ end -}}
+    </div>
+    {{ if .Paginator.HasPrev }}
+    <a class="btn btn-default" href="{{ .Paginator.Prev.URL }}">
+        < Newer Statuses
+    </a>
+{{ end }}
+{{ if .Paginator.HasNext }}
+    <a class="btn btn-default" href="{{ .Paginator.Next.URL }}">
+        Older Statuses >
+    </a>
+{{ end }}
+    {{- partial "footer.html" . -}}
+</div>
+<body></html>
